@@ -3,13 +3,13 @@
   <entry>
     <title>java面向对象知识点</title>
     <url>/2019/10/11/java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9F%A5%E8%AF%86%E7%82%B9/</url>
-    <content><![CDATA[<p>[TOC]</p>
-<h2 id="第二章-类和对象"><a href="#第二章-类和对象" class="headerlink" title="第二章 类和对象"></a>第二章 类和对象</h2><hr>
-<h3 id="1-面向对象概念"><a href="#1-面向对象概念" class="headerlink" title="1.面向对象概念"></a>1.面向对象概念</h3><h3 id="2-类的创建"><a href="#2-类的创建" class="headerlink" title="2.类的创建"></a>2.类的创建</h3><p>语法：public class 类名{}<br>File—&gt;new—&gt;class—&gt;类名</p>
-<h3 id="3-创建对象"><a href="#3-创建对象" class="headerlink" title="3.创建对象"></a>3.创建对象</h3><p>类名 对象名=new 类名();</p>
-<p>对象名.方法名(); 对象名.属性 </p>
-<h3 id="4-构造方法"><a href="#4-构造方法" class="headerlink" title="4.构造方法"></a>4.构造方法</h3><p>​    方法名和类名相同,没有返回值  </p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class 类名&#123;</span><br><span class="line">	public 类名()&#123;&#125;//主要的做用是初始化操作</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    <content><![CDATA[<p>[TOC]</p><h2 id="第二章-类和对象"><a href="#第二章-类和对象" class="headerlink" title="第二章 类和对象"></a>第二章 类和对象</h2><hr><h3 id="1-面向对象概念"><a href="#1-面向对象概念" class="headerlink" title="1.面向对象概念"></a>1.面向对象概念</h3><h3 id="2-类的创建"><a href="#2-类的创建" class="headerlink" title="2.类的创建"></a>2.类的创建</h3><p>语法：public class 类名{}<br>File—&gt;new—&gt;class—&gt;类名</p><h3 id="3-创建对象"><a href="#3-创建对象" class="headerlink" title="3.创建对象"></a>3.创建对象</h3><p>类名 对象名=new 类名();</p><p>对象名.方法名(); 对象名.属性 </p><h3 id="4-构造方法"><a href="#4-构造方法" class="headerlink" title="4.构造方法"></a>4.构造方法</h3><p>​    方法名和类名相同,没有返回值  </p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class 类名&#123;</span><br><span class="line">	public 类名()&#123;&#125;//主要的做用是初始化操作</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><a id="more"></a>
+
+
+
+
+
+
 
 
 
@@ -64,7 +64,7 @@
 <h3 id="1-ArrayList"><a href="#1-ArrayList" class="headerlink" title="1.ArrayList"></a>1.ArrayList</h3><p>用法<br>      ArrayList list=new ArrayList();<br>      list.add();//添加数据<br>      list.get();//获取数据</p>
 <h3 id="2-Map"><a href="#2-Map" class="headerlink" title="2.Map"></a>2.Map</h3><p> 用法<br>      Map map=new HasMap();<br>      map.put(key,value);//key不能重复<br>      map.get(key);//获取key对象的value</p>
 <h3 id="3-泛型"><a href="#3-泛型" class="headerlink" title="3.泛型"></a>3.泛型</h3><p>用法</p>
-<p>​      ArrayList<String> list=new ArrayList&gt;<String>();<br>      Map&lt;String,String&gt; map=new HasMap&lt;String,String&gt;();<br>      ArrayList&lt;Map&lt;String,String&gt;&gt; list=new ArrayList&gt;&lt;Map&lt;String,String&gt;&gt;();</p>
+<p>​      ArrayList<string> list=new ArrayList&gt;<string>();<br>      Map&lt;String,String&gt; map=new HasMap&lt;String,String&gt;();<br>      ArrayList&lt;Map&lt;String,String&gt;&gt; list=new ArrayList&gt;&lt;Map&lt;String,String&gt;&gt;();</string></string></p>
 ]]></content>
   </entry>
 </search>
