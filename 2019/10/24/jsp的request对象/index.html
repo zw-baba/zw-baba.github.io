@@ -57,19 +57,19 @@
 </script>
 
   <meta name="description" content="jsp的request对象主要方法request对象的方法非常多，只写其中常用的几种方法。 getAttribute(String name);这个方法可以取出name属性的值，name属性的值可以用setAttribute(String name,Object o);方法赋值，如果没有对其赋值，则默认name为null;      getContexntPath();这个方法可以获取服务器上下文">
-<meta name="keywords" content="......">
+<meta name="keywords" content="看都看了，不如给点？">
 <meta property="og:type" content="article">
 <meta property="og:title" content="jsp">
 <meta property="og:url" content="http://yoursite.com/2019/10/24/jsp的request对象/index.html">
 <meta property="og:site_name" content="zw-baba">
 <meta property="og:description" content="jsp的request对象主要方法request对象的方法非常多，只写其中常用的几种方法。 getAttribute(String name);这个方法可以取出name属性的值，name属性的值可以用setAttribute(String name,Object o);方法赋值，如果没有对其赋值，则默认name为null;      getContexntPath();这个方法可以获取服务器上下文">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="f:/request.png">
-<meta property="og:updated_time" content="2019-10-24T12:28:25.534Z">
+<meta property="og:image" content="http://a1.qpic.cn/psb?/V13S9xI31Px2LW/p5RYDG8GnkBkSSMOzIUH7uJq0KspJo3TBS*Hf.Iwp9M!/c/dFQBAAAAAAAA&ek=1&kp=1&pt=0&bo=nwEkAZ8BJAEDGTw!&tl=1&vuin=1458566939&tm=1571918400&sce=60-2-2&rf=0-0">
+<meta property="og:updated_time" content="2019-10-24T12:50:42.839Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="jsp">
 <meta name="twitter:description" content="jsp的request对象主要方法request对象的方法非常多，只写其中常用的几种方法。 getAttribute(String name);这个方法可以取出name属性的值，name属性的值可以用setAttribute(String name,Object o);方法赋值，如果没有对其赋值，则默认name为null;      getContexntPath();这个方法可以获取服务器上下文">
-<meta name="twitter:image" content="f:/request.png">
+<meta name="twitter:image" content="http://a1.qpic.cn/psb?/V13S9xI31Px2LW/p5RYDG8GnkBkSSMOzIUH7uJq0KspJo3TBS*Hf.Iwp9M!/c/dFQBAAAAAAAA&ek=1&kp=1&pt=0&bo=nwEkAZ8BJAEDGTw!&tl=1&vuin=1458566939&tm=1571918400&sce=60-2-2&rf=0-0">
   <link rel="canonical" href="http://yoursite.com/2019/10/24/jsp的request对象/">
 
 
@@ -221,7 +221,7 @@
       
     
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">2</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">3</span></a>
 
   </li>
       
@@ -269,7 +269,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">4</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">3</span></a>
 
   </li>
       
@@ -376,7 +376,7 @@
                 
               
 
-              <time title="创建时间：2019-10-24 16:57:56 / 修改时间：20:28:25" itemprop="dateCreated datePublished" datetime="2019-10-24T16:57:56+08:00">2019-10-24</time>
+              <time title="创建时间：2019-10-24 16:57:56 / 修改时间：20:50:42" itemprop="dateCreated datePublished" datetime="2019-10-24T16:57:56+08:00">2019-10-24</time>
             </span>
           
             
@@ -438,7 +438,7 @@
 </ul><a id="more"></a>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page language=<span class="string">"java"</span> contentType=<span class="string">"text/html; charset=UTF-8"</span></span><br><span class="line">    pageEncoding=<span class="string">"gb2312"</span>%&gt;</span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;meta charset=<span class="string">"UTF-8"</span>&gt;</span><br><span class="line">&lt;title&gt;request实例&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;%</span><br><span class="line">	request.setAttribute(<span class="string">"attr"</span>, <span class="string">"hello!"</span>);</span><br><span class="line">	out.print(<span class="string">"attr的值"</span>+request.getAttribute(<span class="string">"attr"</span>)+<span class="string">"&lt;br&gt;"</span>);</span><br><span class="line">	out.print(<span class="string">"上下文路径"</span>+request.getContextPath()+<span class="string">"&lt;br&gt;"</span>);</span><br><span class="line">	out.print(<span class="string">"Cookies:"</span>+request.getCookies()+<span class="string">"&lt;br&gt;"</span>);</span><br><span class="line">	out.print(<span class="string">"Host:"</span>+request.getHeader(<span class="string">"Host"</span>)+<span class="string">"&lt;br&gt;"</span>);</span><br><span class="line">	out.print(<span class="string">"服务器名称："</span>+request.getServerName()+<span class="string">"&lt;br&gt;"</span>);</span><br><span class="line">	out.print(<span class="string">"服务器端口："</span>+request.getServerPort()+<span class="string">"&lt;br&gt;"</span>);</span><br><span class="line">	out.print(<span class="string">"客户端的IP地址："</span>+request.getRemoteAddr()+<span class="string">"&lt;br&gt;"</span>);</span><br><span class="line">	request.removeAttribute(<span class="string">"attr"</span>);</span><br><span class="line">	out.print(<span class="string">"属性移除后的attr的值："</span>+request.getAttribute(<span class="string">"attr"</span>)+<span class="string">"&lt;br&gt;"</span>);</span><br><span class="line">	</span><br><span class="line">%&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
 
-<h3 id="结果："><a href="#结果：" class="headerlink" title="结果："></a>结果：</h3><img src="F:\request.png" style="zoom:150%;">
+<h3 id="结果："><a href="#结果：" class="headerlink" title="结果："></a>结果：</h3><img src="http://a1.qpic.cn/psb?/V13S9xI31Px2LW/p5RYDG8GnkBkSSMOzIUH7uJq0KspJo3TBS*Hf.Iwp9M!/c/dFQBAAAAAAAA&ek=1&kp=1&pt=0&bo=nwEkAZ8BJAEDGTw!&tl=1&vuin=1458566939&tm=1571918400&sce=60-2-2&rf=0-0" style="zoom:150%;">
     </div>
 
     
@@ -476,7 +476,7 @@
           
           <div class="post-tags">
             
-              <a href="/tags/" rel="tag"># ......</a>
+              <a href="/tags/看都看了，不如给点？/" rel="tag"># 看都看了，不如给点？</a>
             
           </div>
         
@@ -486,8 +486,8 @@
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2019/10/21/崔浩老师在线Q币/" rel="next" title="崔浩老师在线Q币">
-                  <i class="fa fa-chevron-left"></i> 崔浩老师在线Q币
+                <a href="/2019/10/20/MYSQL指令小汇总/" rel="next" title="MYSQL指令小汇总">
+                  <i class="fa fa-chevron-left"></i> MYSQL指令小汇总
                 </a>
               
             </div>
@@ -560,7 +560,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-count">3</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -569,7 +569,7 @@
       
       <div class="site-state-item site-state-tags">
         
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">标签</span>
         
       </div>
