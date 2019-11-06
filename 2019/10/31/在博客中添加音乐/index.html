@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.1">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.4.1" color="#222">
+  <link rel="manifest" href="/images/manifest.json">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.1">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.4.1',
+    exturl: false,
+    sidebar: {"position":"left","display":"always","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="1. 音乐来源现在要找个 .mp3 外链资源可真不容易，以往的酷狗歌曲信息里带着，现在也不见了，百度音乐下载也得用客户端，还不显示链接，各大音乐网站真是越来越小心了啊。1.1 网易云音乐想要从网站获取音乐链接的方法还是有的，比如说 网易云音乐 。使用Google/firefox/edge等带开发者工具的浏览器打开网易云音乐，搜索自己想要的音乐，并进行播放，然后打开开发者工具。开发工具打开方式：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在博客中添加音乐">
+<meta property="og:url" content="http://yoursite.com/2019/10/31/在博客中添加音乐/index.html">
+<meta property="og:site_name" content="zw-baba">
+<meta property="og:description" content="1. 音乐来源现在要找个 .mp3 外链资源可真不容易，以往的酷狗歌曲信息里带着，现在也不见了，百度音乐下载也得用客户端，还不显示链接，各大音乐网站真是越来越小心了啊。1.1 网易云音乐想要从网站获取音乐链接的方法还是有的，比如说 网易云音乐 。使用Google/firefox/edge等带开发者工具的浏览器打开网易云音乐，搜索自己想要的音乐，并进行播放，然后打开开发者工具。开发工具打开方式：">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://www.litreily.top/assets/music/xishanyao.png">
+<meta property="og:image" content="https://www.litreily.top/assets/music/xishanyaoLink.png">
+<meta property="og:image" content="https://www.litreily.top/assets/music/upFile.png">
+<meta property="og:image" content="https://www.litreily.top/assets/music/qiniuyunSpace.png">
+<meta property="og:image" content="https://www.litreily.top/assets/music/qiniuyunLink.png">
+<meta property="og:image" content="https://www.litreily.top/assets/music/wlPlayer.png">
+<meta property="og:image" content="https://www.litreily.top/assets/music/wlDemo.png">
+<meta property="og:updated_time" content="2019-11-06T05:27:04.899Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="在博客中添加音乐">
+<meta name="twitter:description" content="1. 音乐来源现在要找个 .mp3 外链资源可真不容易，以往的酷狗歌曲信息里带着，现在也不见了，百度音乐下载也得用客户端，还不显示链接，各大音乐网站真是越来越小心了啊。1.1 网易云音乐想要从网站获取音乐链接的方法还是有的，比如说 网易云音乐 。使用Google/firefox/edge等带开发者工具的浏览器打开网易云音乐，搜索自己想要的音乐，并进行播放，然后打开开发者工具。开发工具打开方式：">
+<meta name="twitter:image" content="https://www.litreily.top/assets/music/xishanyao.png">
+  <link rel="canonical" href="http://yoursite.com/2019/10/31/在博客中添加音乐/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>在博客中添加音乐 | zw-baba</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?730c3948a12897b3f3e4fa9d774174c0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">zw-baba</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+        
+        
+        <li class="menu-item menu-item-home">
+      
+    
+      
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-about">
+      
+    
+      
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+      
+      
+        
+      
+        
+      
+        
+          
+        
+      
+    
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">1</span></a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+      
+      
+        
+      
+        
+          
+        
+      
+        
+      
+    
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">0</span></a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+      
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">7</span></a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-search">
+      
+    
+      
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <a href="/search" rel="section"><i class="fa fa-fw fa-question-circle"></i>搜索</a>
+
+  </li>
+      
+    
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger">
+          <i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/31/在博客中添加音乐/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zw-baba">
+      <meta itemprop="description" content="hello">
+      <meta itemprop="image" content="http://m.qpic.cn/psb?/V13S9xI31Px2LW/W0OxYdGWeXLQTDAPtATjV02CCpFDxedPXPZy0Mv0jJQ!/b/dDYBAAAAAAAA&bo=9AH1AQAAAAADByM!&rf=viewer_4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zw-baba">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            在博客中添加音乐
+            
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-10-31 16:32:36" itemprop="dateCreated datePublished" datetime="2019-10-31T16:32:36+08:00">2019-10-31</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-11-06 13:27:04" itemprop="dateModified" datetime="2019-11-06T13:27:04+08:00">2019-11-06</time>
+              </span>
+            
+          
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span></span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="1-音乐来源"><a href="#1-音乐来源" class="headerlink" title="1. 音乐来源"></a>1. 音乐来源</h2><p>现在要找个 <code>.mp3</code> 外链资源可真不容易，以往的酷狗歌曲信息里带着，现在也不见了，百度音乐下载也得用客户端，还不显示链接，各大音乐网站真是越来越小心了啊。</p><h3 id="1-1-网易云音乐"><a href="#1-1-网易云音乐" class="headerlink" title="1.1 网易云音乐"></a>1.1 网易云音乐</h3><p>想要从网站获取音乐链接的方法还是有的，比如说 <a href="https://music.163.com/#" target="_blank" rel="noopener">网易云音乐</a> 。使用Google/firefox/edge等带开发者工具的浏览器打开网易云音乐，搜索自己想要的音乐，并进行播放，然后打开开发者工具。开发工具打开方式：</p><a id="more"></a>
+
+<ol>
+<li>谷歌：右键点击 <strong>检查</strong>，或使用快捷键 <code>Ctrl+Shift+I</code> ;</li>
+<li>edge：右键点击 <strong>检查元素</strong>/ <strong>查看源</strong>，或使用快捷键 <code>F12</code> ;</li>
+<li>firefox：快捷键 <code>Shift+F2</code> 。</li>
+</ol>
+<p><a href="https://www.litreily.top/assets/music/xishanyao.png" target="_blank" rel="noopener"><img src="https://www.litreily.top/assets/music/xishanyao.png" alt="网易云音乐"></a></p>
+<p>以 <a href="https://music.163.com/#/song?id=405253647" target="_blank" rel="noopener">夕山谣</a> 为例，打开开发工具，找到 <code>Application</code> ，打开 <code>Frames/top/Media</code> 。</p>
+<p><a href="https://www.litreily.top/assets/music/xishanyaoLink.png" target="_blank" rel="noopener"><img src="https://www.litreily.top/assets/music/xishanyaoLink.png" alt="开发工具"></a></p>
+<p>右键选择” Open link in new tab “ 或者 “ Copy link address “，选取链接的前半部分,以 <code>.mp3</code> 结尾。得到链接：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">夕山谣http://m10.music.126.net/20161028204714/808f68e0d3afc7d68d6945d0ce8336eb/ymusic/5a20/163f/3437/9a6871479b12bc82fff53821676faedc.mp3</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-2-本地上传"><a href="#1-2-本地上传" class="headerlink" title="1.2 本地上传"></a>1.2 本地上传</h3><p>除了上述方法外，也可以手动制作音乐外链，当然，这需要借助于其它网站，比如 <a href="http://www.111ttt.com/up/" target="_blank" rel="noopener">www.111ttt.com/up/</a> 。在该网站上传已经下好的音乐文件，然后点击播放地址，在弹出的页面底部就有已生成的外链地址了。</p>
+<p><a href="https://www.litreily.top/assets/music/upFile.png" target="_blank" rel="noopener"><img src="https://www.litreily.top/assets/music/upFile.png" alt="上传音乐"></a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Critty 杏花弦外雨http://sc.111ttt.com/up/mp3/193721/278DF18856D56FEC6B4E6EDC15D97906.mp3</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-3-七牛云存储"><a href="#1-3-七牛云存储" class="headerlink" title="1.3 七牛云存储"></a>1.3 七牛云存储</h3><p><a href="http://www.qiniu.com/" target="_blank" rel="noopener">七牛云</a> 作为国内领先的企业级云服务商，当然提供了最基本的云存储服务。当前可以免费注册并进行实名认证，之后可以获取 10GB 的免费存储空间。</p>
+<p><a href="https://www.litreily.top/assets/music/qiniuyunSpace.png" target="_blank" rel="noopener"><img src="https://www.litreily.top/assets/music/qiniuyunSpace.png" alt="七牛云免费空间"></a></p>
+<p>注册并登录后，需要先创建一个空间，如 <code>litreily</code>，然后打开 <code>对象存储</code> &gt;&gt; <code>litreily</code> &gt;&gt; <code>内容管理</code>。此时便可上传文件，文件类型不限，我们可以将本地音乐文件上传后获取其外链地址。</p>
+<p><a href="https://www.litreily.top/assets/music/qiniuyunLink.png" target="_blank" rel="noopener"><img src="https://www.litreily.top/assets/music/qiniuyunLink.png" alt="七牛云外链获取方法"></a></p>
+<p>所得外链地址为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CRITTY - 轮回之境http://ofx35z92m.bkt.clouddn.com/CRITTY%20-%20%E8%BD%AE%E5%9B%9E%E4%B9%8B%E5%A2%83.mp3</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-音乐播放器"><a href="#2-音乐播放器" class="headerlink" title="2. 音乐播放器"></a>2. 音乐播放器</h2><h3 id="2-1-网易云音乐插件"><a href="#2-1-网易云音乐插件" class="headerlink" title="2.1 网易云音乐插件"></a>2.1 网易云音乐插件</h3><p>网易云音乐提供了外链播放器，官方提供的使用方法如下：</p>
+<ol>
+<li>在 <a href="https://music.163.com/" target="_blank" rel="noopener">music.163.com</a> 进入单曲、歌单、专辑、电台节目页面后，点击 “生成外链播放器” 链接。</li>
+<li>歌单和专辑外链播放器可以选择大中小三种尺寸，单曲和电台节目可以选择中小两种尺寸。你可以选择最适合你网站设计的尺寸。</li>
+<li>还可以选择是否要自动播放，打上勾后，别人访问网站时播放器会自动开始播放。</li>
+<li>最后将播放器的代码黏贴到你的网站上，大功告成！</li>
+</ol>
+<p>[示例：杏花轩外雨]</p>
+<p><a href="https://www.litreily.top/assets/music/wlPlayer.png" target="_blank" rel="noopener"><img src="https://www.litreily.top/assets/music/wlPlayer.png" alt="网易云音乐外链播放器"></a></p>
+<p>[示例代码]</p>
+<p><a href="https://www.litreily.top/assets/music/wlDemo.png" target="_blank" rel="noopener"><img src="https://www.litreily.top/assets/music/wlDemo.png" alt="网易云音乐外链demo"></a></p>
+<p>[示例说明]</p>
+<ol>
+<li>HTML源码中的 “ auto=1 “ 代表自动播放，改为0即可取消自动播放功能；</li>
+<li>在markdown文件中引用该插件时，需要将 <code>iframe</code> 的 <code>width</code> 和 <code>height</code> 属性值用双引号包围起来，即 width=”330” height=”86” ,否则可能出现无法解析该代码的情况；</li>
+<li>使用插件时可以添加一个类（如：class=”musicPlayer”），参考以下代码可以设置播放器的长宽。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.musicPlayer&#123;    width: 100%;    max-width: 500px;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>[示例播放1：height=66 auto=1]</p>
+<iframe class="musicPlayer" frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="https://music.163.com/outchain/player?type=2&amp;id=32957012&amp;auto=1&amp;height=66"></iframe>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;iframe class=&quot;musicPlayer&quot; frameborder=&quot;no&quot; border=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; width=&quot;330&quot;height=&quot;86&quot; src=&quot;https://music.163.com/outchain/player?type=2&amp;id=32957012&amp;auto=0&amp;height=66&quot;&gt;&lt;/iframe&gt;</span><br></pre></td></tr></table></figure>
+
+<p>[示例播放2：height=32 auto=0]</p>
+<iframe class="musicPlayer" frameborder="no" border="0" marginwidth="0" marginheight="0" width="298" height="52" src="https://music.163.com/outchain/player?type=2&amp;id=32548265&amp;auto=0&amp;height=32"></iframe>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;iframe class=&quot;musicPlayer&quot; frameborder=&quot;no&quot; border=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; width=&quot;298&quot;height=&quot;52&quot; src=&quot;https://music.163.com/outchain/player?type=2&amp;id=32548265&amp;auto=0&amp;height=32&quot;&gt;&lt;/iframe&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-audio-js"><a href="#2-2-audio-js" class="headerlink" title="2.2 audio.js"></a>2.2 audio.js</h3><p><a href="https://kolber.github.io/audiojs/" target="_blank" rel="noopener">audio.js</a>是一款轻量级的音乐播放器，下载文件后，将文件夹 “audiojs” 放在网站文件目录中，通过以下代码的形式将该播放器引入网页中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;head&gt;    ...    &lt;script src=&quot;/audiojs/audio.min.js&quot;&gt;&lt;/script&gt;    &lt;script&gt;      audiojs.events.ready(function() &#123;        audiojs.createAll();      &#125;);    &lt;/script&gt;    ...&lt;/head&gt;&lt;body&gt;    ...    &lt;!-- 音乐播放器位置 --&gt;    &lt;!-- preload=&quot;auto&quot; 可以替换为 autoplay 或者 loop  --&gt;    &lt;audio class=&quot;musicPlayer&quot; src=&quot;https://sc.111ttt.com/up/mp3/397401/2A97E1C49899C77A559BCD1E224FCBAB.mp3&quot;    preload=&quot;auto&quot;&gt;&lt;/audio&gt;    &lt;!-- 说明：使用该插件后，其脚本语言将自动为其添加以下内容：        class=&quot;audiojs&quot; classname=&quot;audiojs&quot; id=&quot;audiojs_wrapper0&quot;        如果一个页面中存在多个audiojs播放器，其id尾数将从0逐一增加        通过css修改这些属性，我们可以改变播放器的外观 --&gt;    ...&lt;/body&gt;</span><br></pre></td></tr></table></figure>
+
+<p>[示例：杏花轩外雨，链接由上述1.2方式而得]</p>
+<p>[示例html源码]</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;audiojs   playing&quot; classname=&quot;audiojs&quot; id=&quot;audiojs_wrapper0&quot;&gt;    &lt;audio class=&quot;musicPlayer&quot; src=&quot;https://sc.111ttt.com/up/mp3/397401/2A97E1C49899C77A559BCD1E224FCBAB.mp3&quot; preload=&quot;auto&quot;&gt;&lt;/audio&gt;    &lt;div class=&quot;play-pause&quot;&gt;                     &lt;p class=&quot;play&quot;&gt;&lt;/p&gt;                     &lt;p class=&quot;pause&quot;&gt;&lt;/p&gt;                     &lt;p class=&quot;loading&quot;&gt;&lt;/p&gt;                     &lt;p class=&quot;error&quot;&gt;&lt;/p&gt;               &lt;/div&gt;               &lt;div class=&quot;scrubber&quot;&gt;        &lt;div class=&quot;progress&quot; style=&quot;width: 167.146px;&quot;&gt;&lt;/div&gt;        &lt;div class=&quot;loaded&quot; style=&quot;width: 280px;&quot;&gt;&lt;/div&gt;    &lt;/div&gt;               &lt;div class=&quot;time&quot;&gt;        &lt;em class=&quot;played&quot;&gt;02:22&lt;/em&gt;/&lt;strong class=&quot;duration&quot;&gt;03:57&lt;/strong&gt;               &lt;/div&gt;      &lt;div class=&quot;error-message&quot;&gt;&lt;/div&gt;&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-3-其它"><a href="#2-3-其它" class="headerlink" title="2.3 其它"></a>2.3 其它</h3><ul>
+<li><a href="http://www.ithome.com/html/it/195970.htm" target="_blank" rel="noopener">7 款高颜值 HTML5 播放器</a></li>
+<li><a href="https://www.oschina.net/news/27466/html5-audio-players" target="_blank" rel="noopener">10 个基于 Web 的 HTML5 音乐播放器</a></li>
+<li><a href="http://www.shejidaren.com/free-audio-players.html" target="_blank" rel="noopener">10 个免费开源的 JS 音乐播放器插件</a></li>
+<li><a href="http://www.17sucai.com/pins/tag/3189.html" target="_blank" rel="noopener">播放器 jquery 特效代码</a></li>
+</ul>
+<h2 id="3-总结"><a href="#3-总结" class="headerlink" title="3. 总结"></a>3. 总结</h2><p>网易云音乐的播放器插件使用方便，但是连接效率太低，经常获取不到资源或者获取速度过慢，而 audiojs 播放器虽然外观简陋些，但资源下载效率还不错，而且资源地址可以自定义，不会受限。所以，各有利弊，依情况而定吧。</p>
+<blockquote>
+<p>本文作者：<a href="mailto:litreily@163.com" target="_blank" rel="noopener">litreily</a></p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+        
+      
+        <div class="reward-container">
+  <div></div>
+  <button disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block;">
+        <img src="http://m.qpic.cn/psb?/V13S9xI31Px2LW/SauZrY9K5jxl8VVo0F9Xp0fAPLLHIjZ9wSq7lW1L6CQ!/b/dJ8AAAAAAAAA&bo=XgT.BV4E*gUDCSw!&rf=viewer_4" alt="zw-baba 微信支付">
+        <p>微信支付</p>
+      </div>
+        
+      
+      <div style="display: inline-block;">
+        <img src="http://m.qpic.cn/psb?/V13S9xI31Px2LW/WanKaA2VbNMjVK.aS0nDhN0WYStpabGpEVmI6B7*XwU!/b/dBkBAAAAAAAA&bo=OASQBjgEkAYRCT4!&rf=viewer_4" alt="zw-baba 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+      
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/10/31/使用Css获取用户密码/" rel="next" title="使用Css获取用户密码">
+                  <i class="fa fa-chevron-left"></i> 使用Css获取用户密码
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019/11/04/java连接数据库/" rel="prev" title="java连接数据库">
+                  java连接数据库 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=354698&auto=1&height=66"></iframe>
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-音乐来源"><span class="nav-number">1.</span> <span class="nav-text">1. 音乐来源</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-网易云音乐"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 网易云音乐</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-本地上传"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 本地上传</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-七牛云存储"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 七牛云存储</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-音乐播放器"><span class="nav-number">2.</span> <span class="nav-text">2. 音乐播放器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-网易云音乐插件"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 网易云音乐插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-audio-js"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 audio.js</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-其它"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 其它</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-总结"><span class="nav-number">3.</span> <span class="nav-text">3. 总结</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="http://m.qpic.cn/psb?/V13S9xI31Px2LW/W0OxYdGWeXLQTDAPtATjV02CCpFDxedPXPZy0Mv0jJQ!/b/dDYBAAAAAAAA&bo=9AH1AQAAAAADByM!&rf=viewer_4"
+      alt="zw-baba">
+  <p class="site-author-name" itemprop="name">zw-baba</p>
+  <div class="site-description" itemprop="description">hello</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span>
+        
+      </div>
+    
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/zw-baba" title="GitHub &rarr; https://github.com/zw-baba" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:1458566939@qq.com" title="E-Mail &rarr; mailto:1458566939@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://weibo.com/yourname" title="Weibo &rarr; https://weibo.com/yourname" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+      </span>
+    
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+cript async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+    <span class="post-meta-divider">|</span>
+
+    <span class="post-meta-item-icon">
+
+      <i class="fa fa-area-chart"></i>
+
+    </span>
+
+    
+
+      <span class="post-meta-item-text">站点总字数：</span>
+
+    
+
+	<span title="post.totalcount">
+
+     字 </span>
+
+    <!--<span title="站点总字数"></span>-->
+
+  
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zw-baba</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    
+    <span title="站点总字数"></span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+  
+    <span class="post-meta-divider">|</span>
+  
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.1"></script><script src="/js/motion.js?v=7.4.1"></script>
+<script src="/js/schemes/pisces.js?v=7.4.1"></script>
+
+<script src="/js/next-boot.js?v=7.4.1"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.4.1"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
