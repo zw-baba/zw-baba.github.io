@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.1">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.4.1" color="#222">
+  <link rel="manifest" href="/images/manifest.json">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.1">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.4.1',
+    exturl: false,
+    sidebar: {"position":"left","display":"always","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="StringBuffer类的概述线程安全的可变字符序列StringBuffer和String的区别String是一个不可变的字符序列StringBuffer是一个可变的字符序列StringBuffer类的构造方法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="String-StringBuffer和StringBuilder">
+<meta property="og:url" content="http://yoursite.com/2019/11/26/String-StringBuffer和StringBuilder-1/index.html">
+<meta property="og:site_name" content="zw-baba">
+<meta property="og:description" content="StringBuffer类的概述线程安全的可变字符序列StringBuffer和String的区别String是一个不可变的字符序列StringBuffer是一个可变的字符序列StringBuffer类的构造方法">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190814200819734.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190814201111280.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2019081420140158.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190814201918289.png">
+<meta property="og:updated_time" content="2019-12-01T06:24:46.174Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="String-StringBuffer和StringBuilder">
+<meta name="twitter:description" content="StringBuffer类的概述线程安全的可变字符序列StringBuffer和String的区别String是一个不可变的字符序列StringBuffer是一个可变的字符序列StringBuffer类的构造方法">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20190814200819734.png">
+  <link rel="canonical" href="http://yoursite.com/2019/11/26/String-StringBuffer和StringBuilder-1/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>String-StringBuffer和StringBuilder | zw-baba</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?730c3948a12897b3f3e4fa9d774174c0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">zw-baba</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+        
+        
+        <li class="menu-item menu-item-home">
+      
+    
+      
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-about">
+      
+    
+      
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+      
+      
+        
+      
+        
+      
+        
+          
+        
+      
+    
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">1</span></a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+      
+      
+        
+      
+        
+          
+        
+      
+        
+      
+    
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">0</span></a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+      
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">13</span></a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-search">
+      
+    
+      
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <a href="/search" rel="section"><i class="fa fa-fw fa-question-circle"></i>搜索</a>
+
+  </li>
+      
+    
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger">
+          <i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/26/String-StringBuffer和StringBuilder-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zw-baba">
+      <meta itemprop="description" content="hello">
+      <meta itemprop="image" content="http://m.qpic.cn/psb?/V13S9xI31Px2LW/W0OxYdGWeXLQTDAPtATjV02CCpFDxedPXPZy0Mv0jJQ!/b/dDYBAAAAAAAA&bo=9AH1AQAAAAADByM!&rf=viewer_4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zw-baba">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            String-StringBuffer和StringBuilder
+            
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-11-26 10:06:18" itemprop="dateCreated datePublished" datetime="2019-11-26T10:06:18+08:00">2019-11-26</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-12-01 14:24:46" itemprop="dateModified" datetime="2019-12-01T14:24:46+08:00">2019-12-01</time>
+              </span>
+            
+          
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span></span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="StringBuffer类的概述"><a href="#StringBuffer类的概述" class="headerlink" title="StringBuffer类的概述"></a>StringBuffer类的概述</h3><h5 id="线程安全的可变字符序列"><a href="#线程安全的可变字符序列" class="headerlink" title="线程安全的可变字符序列"></a>线程安全的可变字符序列</h5><h5 id="StringBuffer和String的区别"><a href="#StringBuffer和String的区别" class="headerlink" title="StringBuffer和String的区别"></a>StringBuffer和String的区别</h5><h5 id="String是一个不可变的字符序列"><a href="#String是一个不可变的字符序列" class="headerlink" title="String是一个不可变的字符序列"></a>String是一个不可变的字符序列</h5><h5 id="StringBuffer是一个可变的字符序列"><a href="#StringBuffer是一个可变的字符序列" class="headerlink" title="StringBuffer是一个可变的字符序列"></a>StringBuffer是一个可变的字符序列</h5><h3 id="StringBuffer类的构造方法"><a href="#StringBuffer类的构造方法" class="headerlink" title="StringBuffer类的构造方法"></a>StringBuffer类的构造方法</h3><a id="more"></a><h5 id="public-StringBuffer-无参构造方法"><a href="#public-StringBuffer-无参构造方法" class="headerlink" title="public StringBuffer():无参构造方法"></a>public StringBuffer():无参构造方法</h5><h5 id="public-StringBuffer-int-capacity-指定容量的字符串缓冲区对象"><a href="#public-StringBuffer-int-capacity-指定容量的字符串缓冲区对象" class="headerlink" title="public StringBuffer(int capacity):指定容量的字符串缓冲区对象"></a>public StringBuffer(int capacity):指定容量的字符串缓冲区对象</h5><h5 id="public-StringBuffer-String-str-指定字符串内容的字符串缓冲区对象"><a href="#public-StringBuffer-String-str-指定字符串内容的字符串缓冲区对象" class="headerlink" title="public StringBuffer(String str):指定字符串内容的字符串缓冲区对象"></a>public StringBuffer(String str):指定字符串内容的字符串缓冲区对象</h5><h3 id="StringBuffer的方法"><a href="#StringBuffer的方法" class="headerlink" title="StringBuffer的方法"></a>StringBuffer的方法</h3><h5 id="public-int-capacity-：返回当前容量。-理论值"><a href="#public-int-capacity-：返回当前容量。-理论值" class="headerlink" title="public int capacity()：返回当前容量。    理论值"></a>public int capacity()：返回当前容量。    理论值</h5><h5 id="public-int-length-返回长度（字符数）。-实际值"><a href="#public-int-length-返回长度（字符数）。-实际值" class="headerlink" title="public int length():返回长度（字符数）。 实际值"></a>public int length():返回长度（字符数）。 实际值</h5><h3 id="StringBuffer和String的相互转换"><a href="#StringBuffer和String的相互转换" class="headerlink" title="StringBuffer和String的相互转换"></a>StringBuffer和String的相互转换</h3><h5 id="String-–-StringBuffer"><a href="#String-–-StringBuffer" class="headerlink" title="String – StringBuffer"></a>String – StringBuffer</h5><h5 id="通过构造方法"><a href="#通过构造方法" class="headerlink" title="通过构造方法"></a>通过构造方法</h5><h5 id="通过append-方法"><a href="#通过append-方法" class="headerlink" title="通过append()方法"></a>通过append()方法</h5><h5 id="StringBuffer-–-String"><a href="#StringBuffer-–-String" class="headerlink" title="StringBuffer – String"></a>StringBuffer – String</h5><h5 id="通过构造方法-1"><a href="#通过构造方法-1" class="headerlink" title="通过构造方法"></a>通过构造方法</h5><h5 id="通过toString-方法"><a href="#通过toString-方法" class="headerlink" title="通过toString()方法"></a>通过toString()方法</h5><h5 id="通过subString-0-length"><a href="#通过subString-0-length" class="headerlink" title="通过subString(0,length);"></a>通过subString(0,length);</h5><h3 id="常见对象-把数组转成字符串"><a href="#常见对象-把数组转成字符串" class="headerlink" title="常见对象(把数组转成字符串)"></a>常见对象(把数组转成字符串)</h3><h5 id="用StringBuffer的功能实现"><a href="#用StringBuffer的功能实现" class="headerlink" title="用StringBuffer的功能实现"></a>用StringBuffer的功能实现</h5><h5 id="需求：把数组中的数据按照指定个格式拼接成一个字符串"><a href="#需求：把数组中的数据按照指定个格式拼接成一个字符串" class="headerlink" title="需求：把数组中的数据按照指定个格式拼接成一个字符串"></a>需求：把数组中的数据按照指定个格式拼接成一个字符串</h5><h5 id="例：int-arr-1-2-3"><a href="#例：int-arr-1-2-3" class="headerlink" title="例：int[] arr = {1,2,3};"></a>例：int[] arr = {1,2,3};</h5><h5 id="输出结果：“-1-2-3-”"><a href="#输出结果：“-1-2-3-”" class="headerlink" title="输出结果：“[1, 2, 3]”"></a>输出结果：“[1, 2, 3]”</h5><h3 id="StringBuilder类的概述"><a href="#StringBuilder类的概述" class="headerlink" title="StringBuilder类的概述"></a>StringBuilder类的概述</h3><h5 id="Java-5中被提出，用法同StringBuffer，区别线程不安全，效率更高"><a href="#Java-5中被提出，用法同StringBuffer，区别线程不安全，效率更高" class="headerlink" title="Java 5中被提出，用法同StringBuffer，区别线程不安全，效率更高"></a>Java 5中被提出，用法同StringBuffer，区别线程不安全，效率更高</h5><h3 id="StringBuffer、StringBuilder的区别"><a href="#StringBuffer、StringBuilder的区别" class="headerlink" title="StringBuffer、StringBuilder的区别"></a>StringBuffer、StringBuilder的区别</h3><h5 id="StringBuffer是jdk1-0版本的，线程安全，效率低；"><a href="#StringBuffer是jdk1-0版本的，线程安全，效率低；" class="headerlink" title="StringBuffer是jdk1.0版本的，线程安全，效率低；"></a>StringBuffer是jdk1.0版本的，线程安全，效率低；</h5><h5 id="StringBuilder是jdk1-5版本的，线程不安全，效率高。"><a href="#StringBuilder是jdk1-5版本的，线程不安全，效率高。" class="headerlink" title="StringBuilder是jdk1.5版本的，线程不安全，效率高。"></a>StringBuilder是jdk1.5版本的，线程不安全，效率高。</h5><h3 id="String、StringBuffer和StringBuilder的区别"><a href="#String、StringBuffer和StringBuilder的区别" class="headerlink" title="String、StringBuffer和StringBuilder的区别"></a>String、StringBuffer和StringBuilder的区别</h3><h5 id="String可以赋空值，StringBuffer和StringBuilder不可；"><a href="#String可以赋空值，StringBuffer和StringBuilder不可；" class="headerlink" title="String可以赋空值，StringBuffer和StringBuilder不可；"></a>String可以赋空值，StringBuffer和StringBuilder不可；</h5><h5 id="String值不可变，是一个不可变的字符序列，StringBuffer和StringBuilder可变，是可变的字符序列。"><a href="#String值不可变，是一个不可变的字符序列，StringBuffer和StringBuilder可变，是可变的字符序列。" class="headerlink" title="String值不可变，是一个不可变的字符序列，StringBuffer和StringBuilder可变，是可变的字符序列。"></a>String值不可变，是一个不可变的字符序列，StringBuffer和StringBuilder可变，是可变的字符序列。</h5><h3 id="String的用法"><a href="#String的用法" class="headerlink" title="String的用法"></a>String的用法</h3><h4 id="按要求转换字符"><a href="#按要求转换字符" class="headerlink" title="按要求转换字符"></a>按要求转换字符</h4><h5 id="需求：把一个字符串的首字母转成大写，其余为小写。-只考虑英文大小写字母字符"><a href="#需求：把一个字符串的首字母转成大写，其余为小写。-只考虑英文大小写字母字符" class="headerlink" title="需求：把一个字符串的首字母转成大写，其余为小写。(只考虑英文大小写字母字符)"></a>需求：把一个字符串的首字母转成大写，其余为小写。(只考虑英文大小写字母字符)</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.briup.day15;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StringTest</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">String as = <span class="string">"efwfqaedaqefqefdqA"</span>;</span><br><span class="line">String init = (as.charAt(<span class="number">0</span>) + <span class="string">""</span>).toUpperCase();</span><br><span class="line">String three = (as.charAt(<span class="number">2</span>) + <span class="string">""</span>).toUpperCase();</span><br><span class="line">String last = (as.charAt(as.length() - <span class="number">1</span>) + <span class="string">""</span>).toLowerCase();</span><br><span class="line">String two = as.charAt(<span class="number">1</span>) + <span class="string">""</span>;</span><br><span class="line">String first = init + two + three;</span><br><span class="line">String ll = as.substring(<span class="number">3</span>, as.length() - <span class="number">1</span>);</span><br><span class="line">String over = first + ll + last;</span><br><span class="line">System.out.println(over);</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h5><p><img src="https://img-blog.csdnimg.cn/20190814200819734.png" alt="img"></p>
+<h4 id="把数组转成字符串"><a href="#把数组转成字符串" class="headerlink" title="把数组转成字符串"></a>把数组转成字符串</h4><h5 id="需求：把数组中的数据按照指定格式拼接成一个字符串"><a href="#需求：把数组中的数据按照指定格式拼接成一个字符串" class="headerlink" title="需求：把数组中的数据按照指定格式拼接成一个字符串"></a>需求：把数组中的数据按照指定格式拼接成一个字符串</h5><ul>
+<li>举例： <ul>
+<li>int[] arr = {1,2,3};</li>
+</ul>
+</li>
+<li>输出结果：</li>
+<li>“[1, 2, 3]”</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.briup.day15;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StringBufferTest</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span>[] arr = &#123;<span class="number">1</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>&#125;;</span><br><span class="line">		</span><br><span class="line">	StringBuffer buffer = <span class="keyword">new</span> StringBuffer();</span><br><span class="line">	buffer.append(<span class="string">"["</span>);</span><br><span class="line">		</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i : arr) &#123;</span><br><span class="line">	buffer.append(i).append(<span class="string">","</span>);</span><br><span class="line">	&#125;</span><br><span class="line">		</span><br><span class="line">	buffer.deleteCharAt(buffer.length()-<span class="number">1</span>).append(<span class="string">"]"</span>);</span><br><span class="line">	System.out.println(buffer);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="运行结果-1"><a href="#运行结果-1" class="headerlink" title="运行结果"></a>运行结果</h5><p><img src="https://img-blog.csdnimg.cn/20190814201111280.png" alt="在这里插入图片描述"></p>
+<h3 id="String的去除字符串两空格"><a href="#String的去除字符串两空格" class="headerlink" title="String的去除字符串两空格"></a>String的去除字符串两空格</h3><ul>
+<li>String trim()</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.briup.day15;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StringTest</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">String as = <span class="string">"       ffg          "</span>;</span><br><span class="line">as = as.trim();</span><br><span class="line">System.out.println(as);<span class="comment">//去掉首尾两端的空格</span></span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="运行结果-2"><a href="#运行结果-2" class="headerlink" title="运行结果"></a>运行结果</h5><p><img src="https://img-blog.csdnimg.cn/2019081420140158.png" alt="在这里插入图片描述"></p>
+<h2 id="StringBuffer的功能"><a href="#StringBuffer的功能" class="headerlink" title="StringBuffer的功能"></a>StringBuffer的功能</h2><h3 id="StringBuffer的添加功能"><a href="#StringBuffer的添加功能" class="headerlink" title="StringBuffer的添加功能"></a>StringBuffer的添加功能</h3><ul>
+<li>public StringBuffer append(String str)：<ul>
+<li>可以把任意类型数据<strong>添加到字符串缓冲区</strong>里面，并返回字符串缓冲区本身。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StringBufferTest</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">	StringBuffer buffer = <span class="keyword">new</span> StringBuffer();</span><br><span class="line">	buffer.append(<span class="keyword">true</span>)<span class="comment">//append追加的意思</span></span><br><span class="line">		  .append(<span class="string">"45455"</span>)</span><br><span class="line">		  .append(<span class="string">'a'</span>);</span><br><span class="line">	String string = buffer.toString();</span><br><span class="line">	System.out.println(string);</span><br><span class="line">		</span><br><span class="line">	buffer.append(<span class="string">"lisi"</span>);</span><br><span class="line">		</span><br><span class="line">	String str1 = buffer.toString();</span><br><span class="line">	System.out.println(str1);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="运行结果-3"><a href="#运行结果-3" class="headerlink" title="运行结果"></a>运行结果</h5><p><img src="https://img-blog.csdnimg.cn/20190814201918289.png" alt="在这里插入图片描述"></p>
+<h5 id="public-StringBuffer-insert-int-offset-String-str"><a href="#public-StringBuffer-insert-int-offset-String-str" class="headerlink" title="public StringBuffer insert(int offset,String str):"></a>public StringBuffer insert(int offset,String str):</h5><h5 id="在指定位置把任意类型的数据插入到字符串缓冲区里面-并返回字符串缓冲区本身"><a href="#在指定位置把任意类型的数据插入到字符串缓冲区里面-并返回字符串缓冲区本身" class="headerlink" title="在指定位置把任意类型的数据插入到字符串缓冲区里面,并返回字符串缓冲区本身"></a>在指定位置把任意类型的数据插入到字符串缓冲区里面,并返回字符串缓冲区本身</h5><h3 id="StringBuffer的删除功能"><a href="#StringBuffer的删除功能" class="headerlink" title="StringBuffer的删除功能"></a>StringBuffer的删除功能</h3><h5 id="public-StringBuffer-deleteCharAt-int-index"><a href="#public-StringBuffer-deleteCharAt-int-index" class="headerlink" title="public StringBuffer deleteCharAt(int index):"></a>public StringBuffer deleteCharAt(int index):</h5><h5 id="删除指定位置的字符，并返回本身"><a href="#删除指定位置的字符，并返回本身" class="headerlink" title="删除指定位置的字符，并返回本身"></a>删除指定位置的字符，并返回本身</h5><h5 id="public-StringBuffer-delete-int-start-int-end"><a href="#public-StringBuffer-delete-int-start-int-end" class="headerlink" title="public StringBuffer delete(int start,int end):"></a>public StringBuffer delete(int start,int end):</h5><h5 id="删除从指定位置开始指定位置结束的内容，并返回本身"><a href="#删除从指定位置开始指定位置结束的内容，并返回本身" class="headerlink" title="删除从指定位置开始指定位置结束的内容，并返回本身"></a>删除从指定位置开始指定位置结束的内容，并返回本身</h5><h3 id="StringBuffer的替换和反转功能"><a href="#StringBuffer的替换和反转功能" class="headerlink" title="StringBuffer的替换和反转功能"></a>StringBuffer的替换和反转功能</h3><h5 id="StringBuffer的替换功能"><a href="#StringBuffer的替换功能" class="headerlink" title="StringBuffer的替换功能"></a>StringBuffer的替换功能</h5><h5 id="public-StringBuffer-replace-int-start-int-end-String-str"><a href="#public-StringBuffer-replace-int-start-int-end-String-str" class="headerlink" title="public StringBuffer replace(int start,int end,String str):"></a>public StringBuffer replace(int start,int end,String str):</h5><h5 id="从start开始到end用str替换"><a href="#从start开始到end用str替换" class="headerlink" title="从start开始到end用str替换"></a>从start开始到end用str替换</h5><h5 id="StringBuffer的反转功能"><a href="#StringBuffer的反转功能" class="headerlink" title="StringBuffer的反转功能"></a>StringBuffer的反转功能</h5><h5 id="public-StringBuffer-reverse"><a href="#public-StringBuffer-reverse" class="headerlink" title="public StringBuffer reverse():"></a>public StringBuffer reverse():</h5><h5 id="字符串反转"><a href="#字符串反转" class="headerlink" title="字符串反转"></a>字符串反转</h5><h3 id="StringBuffer的截取功能"><a href="#StringBuffer的截取功能" class="headerlink" title="StringBuffer的截取功能"></a>StringBuffer的截取功能</h3><h5 id="StringBuffer的截取功能-1"><a href="#StringBuffer的截取功能-1" class="headerlink" title="StringBuffer的截取功能"></a>StringBuffer的截取功能</h5><h5 id="public-String-substring-int-start"><a href="#public-String-substring-int-start" class="headerlink" title="public String substring(int start):"></a>public String substring(int start):</h5><h5 id="从指定位置截取到末尾"><a href="#从指定位置截取到末尾" class="headerlink" title="从指定位置截取到末尾"></a>从指定位置截取到末尾</h5><h5 id="public-String-substring-int-start-int-end"><a href="#public-String-substring-int-start-int-end" class="headerlink" title="public String substring(int start,int end):"></a>public String substring(int start,int end):</h5><h5 id="截取从指定位置开始到结束位置，包括开始位置，不包括结束位置"><a href="#截取从指定位置开始到结束位置，包括开始位置，不包括结束位置" class="headerlink" title="截取从指定位置开始到结束位置，包括开始位置，不包括结束位置"></a>截取从指定位置开始到结束位置，包括开始位置，不包括结束位置</h5><h5 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h5><h5 id="注意-返回值类型不再是StringBuffer本身"><a href="#注意-返回值类型不再是StringBuffer本身" class="headerlink" title="注意:返回值类型不再是StringBuffer本身"></a>注意:返回值类型不再是StringBuffer本身</h5>
+    </div>
+
+    
+    
+    
+        
+      
+        <div class="reward-container">
+  <div></div>
+  <button disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block;">
+        <img src="http://m.qpic.cn/psb?/V13S9xI31Px2LW/SauZrY9K5jxl8VVo0F9Xp0fAPLLHIjZ9wSq7lW1L6CQ!/b/dJ8AAAAAAAAA&bo=XgT.BV4E*gUDCSw!&rf=viewer_4" alt="zw-baba 微信支付">
+        <p>微信支付</p>
+      </div>
+        
+      
+      <div style="display: inline-block;">
+        <img src="http://m.qpic.cn/psb?/V13S9xI31Px2LW/WanKaA2VbNMjVK.aS0nDhN0WYStpabGpEVmI6B7*XwU!/b/dBkBAAAAAAAA&bo=OASQBjgEkAYRCT4!&rf=viewer_4" alt="zw-baba 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+      
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/11/04/java连接数据库/" rel="next" title="java连接数据库">
+                  <i class="fa fa-chevron-left"></i> java连接数据库
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019/12/02/EL表达式/" rel="prev" title="EL表达式">
+                  EL表达式 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=354698&auto=1&height=66"></iframe>
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#StringBuffer类的概述"><span class="nav-number">1.</span> <span class="nav-text">StringBuffer类的概述</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#线程安全的可变字符序列"><span class="nav-number">1.0.1.</span> <span class="nav-text">线程安全的可变字符序列</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#StringBuffer和String的区别"><span class="nav-number">1.0.2.</span> <span class="nav-text">StringBuffer和String的区别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#String是一个不可变的字符序列"><span class="nav-number">1.0.3.</span> <span class="nav-text">String是一个不可变的字符序列</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#StringBuffer是一个可变的字符序列"><span class="nav-number">1.0.4.</span> <span class="nav-text">StringBuffer是一个可变的字符序列</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#StringBuffer类的构造方法"><span class="nav-number">2.</span> <span class="nav-text">StringBuffer类的构造方法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#public-StringBuffer-无参构造方法"><span class="nav-number">2.0.1.</span> <span class="nav-text">public StringBuffer():无参构造方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#public-StringBuffer-int-capacity-指定容量的字符串缓冲区对象"><span class="nav-number">2.0.2.</span> <span class="nav-text">public StringBuffer(int capacity):指定容量的字符串缓冲区对象</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#public-StringBuffer-String-str-指定字符串内容的字符串缓冲区对象"><span class="nav-number">2.0.3.</span> <span class="nav-text">public StringBuffer(String str):指定字符串内容的字符串缓冲区对象</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#StringBuffer的方法"><span class="nav-number">3.</span> <span class="nav-text">StringBuffer的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#public-int-capacity-：返回当前容量。-理论值"><span class="nav-number">3.0.1.</span> <span class="nav-text">public int capacity()：返回当前容量。    理论值</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#public-int-length-返回长度（字符数）。-实际值"><span class="nav-number">3.0.2.</span> <span class="nav-text">public int length():返回长度（字符数）。 实际值</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#StringBuffer和String的相互转换"><span class="nav-number">4.</span> <span class="nav-text">StringBuffer和String的相互转换</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#String-–-StringBuffer"><span class="nav-number">4.0.1.</span> <span class="nav-text">String – StringBuffer</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#通过构造方法"><span class="nav-number">4.0.2.</span> <span class="nav-text">通过构造方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#通过append-方法"><span class="nav-number">4.0.3.</span> <span class="nav-text">通过append()方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#StringBuffer-–-String"><span class="nav-number">4.0.4.</span> <span class="nav-text">StringBuffer – String</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#通过构造方法-1"><span class="nav-number">4.0.5.</span> <span class="nav-text">通过构造方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#通过toString-方法"><span class="nav-number">4.0.6.</span> <span class="nav-text">通过toString()方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#通过subString-0-length"><span class="nav-number">4.0.7.</span> <span class="nav-text">通过subString(0,length);</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常见对象-把数组转成字符串"><span class="nav-number">5.</span> <span class="nav-text">常见对象(把数组转成字符串)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#用StringBuffer的功能实现"><span class="nav-number">5.0.1.</span> <span class="nav-text">用StringBuffer的功能实现</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#需求：把数组中的数据按照指定个格式拼接成一个字符串"><span class="nav-number">5.0.2.</span> <span class="nav-text">需求：把数组中的数据按照指定个格式拼接成一个字符串</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#例：int-arr-1-2-3"><span class="nav-number">5.0.3.</span> <span class="nav-text">例：int[] arr = {1,2,3};</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#输出结果：“-1-2-3-”"><span class="nav-number">5.0.4.</span> <span class="nav-text">输出结果：“[1, 2, 3]”</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#StringBuilder类的概述"><span class="nav-number">6.</span> <span class="nav-text">StringBuilder类的概述</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Java-5中被提出，用法同StringBuffer，区别线程不安全，效率更高"><span class="nav-number">6.0.1.</span> <span class="nav-text">Java 5中被提出，用法同StringBuffer，区别线程不安全，效率更高</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#StringBuffer、StringBuilder的区别"><span class="nav-number">7.</span> <span class="nav-text">StringBuffer、StringBuilder的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#StringBuffer是jdk1-0版本的，线程安全，效率低；"><span class="nav-number">7.0.1.</span> <span class="nav-text">StringBuffer是jdk1.0版本的，线程安全，效率低；</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#StringBuilder是jdk1-5版本的，线程不安全，效率高。"><span class="nav-number">7.0.2.</span> <span class="nav-text">StringBuilder是jdk1.5版本的，线程不安全，效率高。</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#String、StringBuffer和StringBuilder的区别"><span class="nav-number">8.</span> <span class="nav-text">String、StringBuffer和StringBuilder的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#String可以赋空值，StringBuffer和StringBuilder不可；"><span class="nav-number">8.0.1.</span> <span class="nav-text">String可以赋空值，StringBuffer和StringBuilder不可；</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#String值不可变，是一个不可变的字符序列，StringBuffer和StringBuilder可变，是可变的字符序列。"><span class="nav-number">8.0.2.</span> <span class="nav-text">String值不可变，是一个不可变的字符序列，StringBuffer和StringBuilder可变，是可变的字符序列。</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#String的用法"><span class="nav-number">9.</span> <span class="nav-text">String的用法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#按要求转换字符"><span class="nav-number">9.1.</span> <span class="nav-text">按要求转换字符</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#需求：把一个字符串的首字母转成大写，其余为小写。-只考虑英文大小写字母字符"><span class="nav-number">9.1.1.</span> <span class="nav-text">需求：把一个字符串的首字母转成大写，其余为小写。(只考虑英文大小写字母字符)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#运行结果"><span class="nav-number">9.1.2.</span> <span class="nav-text">运行结果</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#把数组转成字符串"><span class="nav-number">9.2.</span> <span class="nav-text">把数组转成字符串</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#需求：把数组中的数据按照指定格式拼接成一个字符串"><span class="nav-number">9.2.1.</span> <span class="nav-text">需求：把数组中的数据按照指定格式拼接成一个字符串</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#运行结果-1"><span class="nav-number">9.2.2.</span> <span class="nav-text">运行结果</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#String的去除字符串两空格"><span class="nav-number">10.</span> <span class="nav-text">String的去除字符串两空格</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#运行结果-2"><span class="nav-number">10.0.1.</span> <span class="nav-text">运行结果</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#StringBuffer的功能"><span class="nav-number"></span> <span class="nav-text">StringBuffer的功能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#StringBuffer的添加功能"><span class="nav-number">1.</span> <span class="nav-text">StringBuffer的添加功能</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#运行结果-3"><span class="nav-number">1.0.1.</span> <span class="nav-text">运行结果</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#public-StringBuffer-insert-int-offset-String-str"><span class="nav-number">1.0.2.</span> <span class="nav-text">public StringBuffer insert(int offset,String str):</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#在指定位置把任意类型的数据插入到字符串缓冲区里面-并返回字符串缓冲区本身"><span class="nav-number">1.0.3.</span> <span class="nav-text">在指定位置把任意类型的数据插入到字符串缓冲区里面,并返回字符串缓冲区本身</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#StringBuffer的删除功能"><span class="nav-number">2.</span> <span class="nav-text">StringBuffer的删除功能</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#public-StringBuffer-deleteCharAt-int-index"><span class="nav-number">2.0.1.</span> <span class="nav-text">public StringBuffer deleteCharAt(int index):</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#删除指定位置的字符，并返回本身"><span class="nav-number">2.0.2.</span> <span class="nav-text">删除指定位置的字符，并返回本身</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#public-StringBuffer-delete-int-start-int-end"><span class="nav-number">2.0.3.</span> <span class="nav-text">public StringBuffer delete(int start,int end):</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#删除从指定位置开始指定位置结束的内容，并返回本身"><span class="nav-number">2.0.4.</span> <span class="nav-text">删除从指定位置开始指定位置结束的内容，并返回本身</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#StringBuffer的替换和反转功能"><span class="nav-number">3.</span> <span class="nav-text">StringBuffer的替换和反转功能</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#StringBuffer的替换功能"><span class="nav-number">3.0.1.</span> <span class="nav-text">StringBuffer的替换功能</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#public-StringBuffer-replace-int-start-int-end-String-str"><span class="nav-number">3.0.2.</span> <span class="nav-text">public StringBuffer replace(int start,int end,String str):</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#从start开始到end用str替换"><span class="nav-number">3.0.3.</span> <span class="nav-text">从start开始到end用str替换</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#StringBuffer的反转功能"><span class="nav-number">3.0.4.</span> <span class="nav-text">StringBuffer的反转功能</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#public-StringBuffer-reverse"><span class="nav-number">3.0.5.</span> <span class="nav-text">public StringBuffer reverse():</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#字符串反转"><span class="nav-number">3.0.6.</span> <span class="nav-text">字符串反转</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#StringBuffer的截取功能"><span class="nav-number">4.</span> <span class="nav-text">StringBuffer的截取功能</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#StringBuffer的截取功能-1"><span class="nav-number">4.0.1.</span> <span class="nav-text">StringBuffer的截取功能</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#public-String-substring-int-start"><span class="nav-number">4.0.2.</span> <span class="nav-text">public String substring(int start):</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#从指定位置截取到末尾"><span class="nav-number">4.0.3.</span> <span class="nav-text">从指定位置截取到末尾</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#public-String-substring-int-start-int-end"><span class="nav-number">4.0.4.</span> <span class="nav-text">public String substring(int start,int end):</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#截取从指定位置开始到结束位置，包括开始位置，不包括结束位置"><span class="nav-number">4.0.5.</span> <span class="nav-text">截取从指定位置开始到结束位置，包括开始位置，不包括结束位置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#注意事项"><span class="nav-number">4.0.6.</span> <span class="nav-text">注意事项</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#注意-返回值类型不再是StringBuffer本身"><span class="nav-number">4.0.7.</span> <span class="nav-text">注意:返回值类型不再是StringBuffer本身</span></a></li></ol></li></ol></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="http://m.qpic.cn/psb?/V13S9xI31Px2LW/W0OxYdGWeXLQTDAPtATjV02CCpFDxedPXPZy0Mv0jJQ!/b/dDYBAAAAAAAA&bo=9AH1AQAAAAADByM!&rf=viewer_4"
+      alt="zw-baba">
+  <p class="site-author-name" itemprop="name">zw-baba</p>
+  <div class="site-description" itemprop="description">hello</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span>
+        
+      </div>
+    
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/zw-baba" title="GitHub &rarr; https://github.com/zw-baba" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:1458566939@qq.com" title="E-Mail &rarr; mailto:1458566939@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://weibo.com/yourname" title="Weibo &rarr; https://weibo.com/yourname" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+      </span>
+    
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+cript async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+    <span class="post-meta-divider">|</span>
+
+    <span class="post-meta-item-icon">
+
+      <i class="fa fa-area-chart"></i>
+
+    </span>
+
+    
+
+      <span class="post-meta-item-text">站点总字数：</span>
+
+    
+
+	<span title="post.totalcount">
+
+     字 </span>
+
+    <!--<span title="站点总字数"></span>-->
+
+  
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zw-baba</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    
+    <span title="站点总字数"></span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+  
+    <span class="post-meta-divider">|</span>
+  
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.1"></script><script src="/js/motion.js?v=7.4.1"></script>
+<script src="/js/schemes/pisces.js?v=7.4.1"></script>
+
+<script src="/js/next-boot.js?v=7.4.1"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.4.1"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
